@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { ShoppingBag, ChevronDown, Sparkles, Clock, AlertCircle, Trash2 } from 'lucide-react';
+import { ShoppingBag, ChevronDown, Clock, AlertCircle, Trash2 } from 'lucide-react';
 import WeeklyPass from './components/WeeklyPass';
 import TrafficWidget from './components/TrafficWidget';
 import MenuGrid from './components/MenuGrid';
-import AIAssistant from './components/AIAssistant';
 import { TIME_SLOTS } from './constants';
 import { MenuItem, CartItem, TimeSlot } from './types';
 
@@ -11,7 +10,6 @@ function App() {
   const [selectedSlot, setSelectedSlot] = useState<TimeSlot>(TIME_SLOTS[0]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [hasPass, setHasPass] = useState(true);
-  const [isAIModalOpen, setIsAIModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (item: MenuItem) => {
@@ -48,14 +46,6 @@ function App() {
     setIsCartOpen(false);
   };
 
-  const handleAISelect = (dishName: string, time: string) => {
-    setIsAIModalOpen(false);
-    // Rough logic to switch slot based on AI suggestion string
-    const slot = TIME_SLOTS.find(s => s.time === time) || TIME_SLOTS.find(s => s.label.includes(time)) || TIME_SLOTS[0];
-    setSelectedSlot(slot);
-    alert(`Switched to ${slot.label} for efficiency. Found "${dishName}" in menu.`);
-  };
-
   const total = cart.reduce((acc, item) => acc + item.finalPrice, 0);
 
   return (
@@ -69,14 +59,7 @@ function App() {
               <h1 className="font-bold text-xl text-gray-900 tracking-tight">NIE Eats</h1>
             </div>
             <div className="flex gap-3">
-               <button 
-                onClick={() => setIsAIModalOpen(true)}
-                className="bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2 shadow-sm hover:shadow-md hover:scale-105 transition-all"
-              >
-                <Sparkles size={16} />
-                <span className="hidden sm:inline">Ask AI Assistant</span>
-                <span className="sm:hidden">AI</span>
-              </button>
+              {/* AI Button removed */}
             </div>
           </div>
         </header>
@@ -213,14 +196,6 @@ function App() {
               </button>
             )}
           </div>
-        )}
-
-        {/* AI Modal */}
-        {isAIModalOpen && (
-          <AIAssistant 
-            onClose={() => setIsAIModalOpen(false)}
-            onSelectRecommendation={handleAISelect}
-          />
         )}
       </div>
     </div>

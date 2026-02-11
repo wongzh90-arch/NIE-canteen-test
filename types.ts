@@ -25,6 +25,5 @@ export interface TimeSlot {
 export enum ViewState {
   HOME = 'HOME',
   ORDER = 'ORDER',
-  CHECKOUT = 'CHECKOUT',
-  AI_ASSISTANT = 'AI_ASSISTANT'
+  CHECKOUT = 'CHECKOUT'
 }
